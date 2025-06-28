@@ -1,7 +1,7 @@
  /* INÍCIO DO JAVASCRIPT */
  let personagens = [];
  let secoes = [];
- let secaoIdCounter = 0; // Para gerar IDs únicos para as seções
+ let secaoIdCounter = 0; 
 
  function adicionarPersonagem() {
      const input = document.getElementById('novo-personagem-input');
@@ -10,14 +10,14 @@
          personagens.push(nome);
          input.value = '';
          renderizarPersonagens();
-         atualizarSelectPersonagens(); // Atualiza os selects nas seções existentes
+         atualizarSelectPersonagens(); 
      }
  }
 
  function removerPersonagem(nome) {
      personagens = personagens.filter(p => p !== nome);
      renderizarPersonagens();
-     atualizarSelectPersonagens(); // Atualiza os selects nas seções existentes
+     atualizarSelectPersonagens(); 
  }
 
  function renderizarPersonagens() {
@@ -61,7 +61,7 @@
      const secao = secoes.find(s => s.id === secaoId);
      if (secao) {
          secao.falas.push({ personagem: '', texto: '' });
-         renderizarSecoes(); // Renderiza tudo para atualizar a seção com a nova fala
+         renderizarSecoes(); 
      }
  }
 
@@ -110,15 +110,14 @@
  }
 
  function atualizarSelectPersonagens() {
-     // Itera sobre todas as seções e suas falas para atualizar os selects
      secoes.forEach(secao => {
          secao.falas.forEach((fala, index) => {
              const selectElement = document.getElementById(`select-${secao.id}-${index}`);
              if (selectElement) {
-                 const selectedValue = selectElement.value; // Mantém a seleção atual
+                 const selectedValue = selectElement.value; 
                  const newSelect = criarSelectPersonagens(secao.id, index, selectedValue);
                  selectElement.parentNode.replaceChild(newSelect, selectElement);
-                 newSelect.id = `select-${secao.id}-${index}`; // Restaura o ID para futura referência
+                 newSelect.id = `select-${secao.id}-${index}`; 
              }
          });
      });
@@ -149,13 +148,13 @@
              divFala.className = 'fala-item';
 
              const selectPersonagem = criarSelectPersonagens(secao.id, index, fala.personagem);
-             selectPersonagem.id = `select-${secao.id}-${index}`; // Adiciona um ID para fácil acesso
+             selectPersonagem.id = `select-${secao.id}-${index}`; 
 
              const textareaFala = document.createElement('textarea');
              textareaFala.placeholder = 'Fale aqui...';
              textareaFala.value = fala.texto;
              textareaFala.oninput = (e) => atualizarFalaTexto(secao.id, index, e.target.value);
-             textareaFala.rows = 2; // Ajuste o número de linhas padrão conforme necessário
+             textareaFala.rows = 2; 
 
              const removerFalaBtn = document.createElement('button');
              removerFalaBtn.className = 'remove-btn btn';
@@ -189,18 +188,30 @@
  }
 
  function copiarRoteiro() {
-     const roteiroOutput = document.getElementById('roteiro-output');
-     navigator.clipboard.writeText(roteiroOutput.textContent)
-         .then(() => {
-             alert('Roteiro copiado para a área de transferência!');
-         })
-         .catch(err => {
-             console.error('Erro ao copiar: ', err);
-             alert('Falha ao copiar o roteiro. Tente novamente.');
-         });
- }
+    const roteiroOutput = document.getElementById('roteiro-output');
+    const texto = roteiroOutput.textContent;
 
- // Renderiza o que já existe ao carregar a página
+    const textarea = document.createElement('textarea');
+    textarea.value = texto;
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+        const sucesso = document.execCommand('copy');
+        if (sucesso) {
+            alert('Roteiro copiado para a área de transferência!');
+        } else {
+            alert('Falha ao copiar o roteiro.');
+        }
+    } catch (err) {
+        console.error('Erro ao copiar:', err);
+        alert('Erro ao copiar o roteiro.');
+    }
+
+    document.body.removeChild(textarea);
+}
+
+
  document.addEventListener('DOMContentLoaded', () => {
      renderizarPersonagens();
      renderizarSecoes();

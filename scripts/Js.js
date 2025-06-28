@@ -1,7 +1,7 @@
 function toggleNav() {
   const menu = document.getElementById("Menu");
   const tickets = menu.querySelectorAll('.ticket');
-  const isOpen = menu.style.width === "250px";
+  const isOpen = menu.style.width === "340px";
 
   if (isOpen) {
     tickets.forEach((ticket, i) => {
@@ -16,7 +16,7 @@ function toggleNav() {
     }, tickets.length * 100 + 400);
 
   } else {
-    menu.style.width = "250px";
+    menu.style.width = "340px";
 
     tickets.forEach((ticket, i) => {
       setTimeout(() => {
@@ -26,3 +26,18 @@ function toggleNav() {
     });
   }
 }
+/* 
+   const input = document.getElementById('searchInput');
+    const content = document.getElementById('content');
+    const originalText = content.innerHTML;
+
+    input.addEventListener('input', () => {
+      const query = input.value.trim();
+      if(!query) {
+        content.innerHTML = originalText;
+        return;
+      }
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      content.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
+    });
+*/ 
