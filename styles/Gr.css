@@ -8,6 +8,7 @@
     background-color: #f7b69e;
     color: #333;
     box-sizing: border-box;
+    overscroll-behavior: none;
 }
 
 h1{
@@ -29,6 +30,7 @@ h2{
     width: 80%;
     max-width: 500px;
 }
+
 /*cabeçalho */
 header {
   position: fixed;

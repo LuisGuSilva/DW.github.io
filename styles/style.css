@@ -9,6 +9,7 @@ body {
   background-color: #f7b69e;
   color: #333;
   box-sizing: border-box;
+  overscroll-behavior: none;
 }
 
 h1{
